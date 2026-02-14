@@ -1,7 +1,7 @@
 {
   "enableAutoCleanup": true,
-  "cleanupIntervalMs": 60000,
-  "sessionTimeoutMs": 120000,
+  "cleanupIntervalMs": 21600000,
+  "sessionTimeoutMs": 7200000,
   "autoAbortTimeout": false,
-  "_comment": "Test configuration: 1 minute cleanup interval, 2 minutes timeout"
+  "_comment": "Production configuration: 6 hours cleanup interval, 2 hours timeout"
 }
