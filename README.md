@@ -66,12 +66,12 @@ parallel_subagent_orchestrator_orchestrate({
 
 **Via Natural Language (Recommended):**
 ```
-请帮我并行分析Q1销售数据并创建总结报告，分成3个子任务
+Please help me analyze Q1 sales data in parallel and create summary reports, split into 3 subtasks
 ```
 
 Or simply:
 ```
-帮我并行分析Q1销售数据，分成3个子任务
+Help me analyze Q1 sales data in parallel, split into 3 subtasks
 ```
 
 The plugin will:
@@ -333,15 +333,15 @@ Sub-agents report progress using `sessions_send` tool with formatted messages:
 You can simply describe what you need in plain language:
 
 ```
-帮我分析这个项目的代码，找出潜在的安全问题
+Please help me analyze this project's code and find potential security issues
 ```
 
 ```
-请并行研究最新的AI框架并生成对比报告
+Please research the latest AI frameworks in parallel and generate a comparison report
 ```
 
 ```
-帮我分析销售数据，分成3个子任务
+Help me analyze sales data, split into 3 subtasks
 ```
 
 OpenClaw will automatically call the orchestrate tool with appropriate parameters.
