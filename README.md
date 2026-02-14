@@ -1,13 +1,15 @@
 # 🚀 OpenClaw PSAM - Parallel Sub-Agent Orchestrator
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-0.2.0-green.svg)](https://github.com/yourusername/openclaw-psam)
+[![Version](https://img.shields.io/badge/version-0.2.0-green.svg)](https://github.com/Ryandawson2019/openclaw-psam)
 [![OpenClaw](https://img.shields.io/badge/OpenClaw-Plugin-orange.svg)](https://openclaw.ai)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
 > **Break down complex tasks into parallel sub-agents with intelligent model selection and real-time progress tracking**
 
 An OpenClaw plugin that orchestrates multiple AI sub-agents to work on complex tasks in parallel, with smart model selection, persistent state tracking, and automated resource management.
+
+**[简体中文文档](README.zh-CN.md)** | English
 
 ---
 
@@ -34,7 +36,7 @@ cd ~/.openclaw/extensions
 
 2. **Clone or copy the plugin:**
 ```bash
-git clone https://github.com/yourusername/openclaw-psam.git
+git clone https://github.com/Ryandawson2019/openclaw-psam.git
 # or
 cp -r /path/to/openclaw-psam ~/.openclaw/extensions/
 ```
@@ -53,17 +55,27 @@ openclaw gateway restart
 
 ### Your First Orchestrated Task
 
+**Via Tool Call:**
 ```javascript
-// Ask OpenClaw to orchestrate a task
 parallel_subagent_orchestrator_orchestrate({
-  task_description: "Analyze the Q1 sales data and create summary reports",
+  task_description: "Analyze Q1 sales data and create summary reports",
   priority: "high",
   subtask_count: 3
 })
 ```
 
+**Via Natural Language (Recommended):**
+```
+请帮我并行分析Q1销售数据并创建总结报告，分成3个子任务
+```
+
+Or simply:
+```
+帮我并行分析Q1销售数据，分成3个子任务
+```
+
 The plugin will:
-1. ✅ Break down the task into 3 subtasks
+1. ✅ Break down your task into 3 subtasks
 2. ✅ Select optimal models for each subtask
 3. ✅ Return execution instructions
 4. ✅ Track progress of all sub-agents
@@ -84,7 +96,7 @@ Create and launch a new orchestrated task with multiple sub-agents.
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `task_description` | `string` | ✅ | Clear description of what needs to be done |
-| `priority` | `string` | ❌ | `high` | `medium` | `low` (default: medium) |
+| `priority` | `string` | ❌ | `high` \| `medium` \| `low` (default: medium) |
 | `models` | `string` | ❌ | Comma-separated list of specific models to use |
 | `subtask_count` | `number` | ❌ | Number of subtasks: 1-5 (default: 1) |
 
@@ -114,7 +126,7 @@ Query the current status of any orchestrated task or subtask.
 |-----------|------|----------|-------------|
 | `task` | `string` | ❌ | Filter by main task ID |
 | `session` | `string` | ❌ | Filter by sub-agent session ID |
-| `status_filter` | `string` | ❌ | `pending` | `running` | `completed` | `failed` | `aborted` |
+| `status_filter` | `string` | ❌ | `pending` \| `running` \| `completed` \| `failed` \| `aborted` |
 
 **Examples:**
 ```javascript
@@ -234,7 +246,11 @@ Manual cleanup of old tasks, progress files, and zombie session detection.
 
 ---
 
-## 🎯 Default Models
+## 🎯 Model Configuration
+
+The plugin includes a **default model list** that works out of the box. You can customize models at runtime using the `orchestrate_config` tool.
+
+### Default Models (Included)
 
 | Model | Speed | Cost | Context | Best For |
 |-------|--------|-------|----------|------------|
@@ -242,6 +258,8 @@ Manual cleanup of old tasks, progress files, and zombie session detection.
 | `anthropic/claude-haiku-4-5` | Fast | Low | 200K | Quick tasks, summaries |
 | `gemini-2.0-flash` | Very Fast | Very Low | 1M | High-volume parallel tasks |
 | `gemini-2.0-pro` | Medium | Medium | 2M | Advanced reasoning, coding |
+
+**Note**: This is a **built-in default list**. You don't need to configure it unless you want to customize it.
 
 ---
 
@@ -253,7 +271,7 @@ openclaw-psam/
 │   └── tasks.json           # Persistent task state
 ├── logs/
 │   └── task_activity.jsonl   # Activity log (JSONL format)
-├── models.json               # Model capabilities config
+├── models.json               # Model capabilities config (auto-created)
 ├── config.json              # Plugin settings (optional)
 ├── index.ts                 # Main plugin code
 └── package.json
@@ -270,28 +288,31 @@ Create `config.json` in the plugin directory to customize behavior:
   "enableAutoCleanup": true,
   "cleanupIntervalMs": 21600000,
   "sessionTimeoutMs": 7200000,
-  "autoAbortTimeout": false,
-  "wecomSenderSkillName": "wecom-sender",
-  "monitoringAgentModel": "gemini-2.0-flash"
+  "autoAbortTimeout": false
 }
 ```
 
 **Settings:**
 
-| Setting | Type | Default | Description |
-|---------|------|----------|-------------|
-| `enableAutoCleanup` | boolean | `true` | Enable periodic resource cleanup |
-| `cleanupIntervalMs` | number | `21600000` | Cleanup interval (6 hours) |
-| `sessionTimeoutMs` | number | `7200000` | Session timeout (2 hours) |
-| `autoAbortTimeout` | boolean | `false` | Auto-abort timed-out sessions |
-| `wecomSenderSkillName` | string | `"wecom-sender"` | Skill for notifications |
-| `monitoringAgentModel` | string | `"gemini-2.0-flash"` | Model for status reports |
+| Setting | Type | Default | Required | Description |
+|---------|------|----------|----------|-------------|
+| `enableAutoCleanup` | boolean | `true` | ❌ | Enable periodic resource cleanup |
+| `cleanupIntervalMs` | number | `21600000` | ❌ | Cleanup interval (6 hours) |
+| `sessionTimeoutMs` | number | `7200000` | ❌ | Session timeout (2 hours) |
+| `autoAbortTimeout` | boolean | `false` | ❌ | Auto-abort timed-out sessions |
+| `wecomSenderSkillName` | string | `"wecom-sender"` | ❌ | **Optional**: Skill for notifications (requires wecom-sender plugin) |
+| `monitoringAgentModel` | string | `"gemini-2.0-flash"` | ❌ | **Optional**: Model for status reports (must be available) |
+
+**Notes:**
+- All configuration fields are **optional** - the plugin works without any config
+- `wecomSenderSkillName`: Only needed if you have the `wecom-sender` plugin installed and want notifications
+- `monitoringAgentModel`: Only needed if you want to override the default monitoring model
 
 ---
 
 ## 🔄 Progress Reporting
 
-Sub-agents report progress using the `sessions_send` tool with formatted messages:
+Sub-agents report progress using `sessions_send` tool with formatted messages:
 
 **Format:** `[PSAM-PROGRESS] subtask-id | Step N/M | Description`
 
@@ -307,7 +328,27 @@ Sub-agents report progress using the `sessions_send` tool with formatted message
 
 ## 📖 Usage Examples
 
-### Example 1: Research Task
+### Natural Language (Recommended)
+
+You can simply describe what you need in plain language:
+
+```
+帮我分析这个项目的代码，找出潜在的安全问题
+```
+
+```
+请并行研究最新的AI框架并生成对比报告
+```
+
+```
+帮我分析销售数据，分成3个子任务
+```
+
+OpenClaw will automatically call the orchestrate tool with appropriate parameters.
+
+### Tool-Based Examples
+
+#### Example 1: Research Task
 
 ```javascript
 parallel_subagent_orchestrator_orchestrate({
@@ -317,7 +358,7 @@ parallel_subagent_orchestrator_orchestrate({
 })
 ```
 
-### Example 2: Code Analysis
+#### Example 2: Code Analysis
 
 ```javascript
 parallel_subagent_orchestrator_orchestrate({
@@ -327,7 +368,7 @@ parallel_subagent_orchestrator_orchestrate({
 })
 ```
 
-### Example 3: Multi-Language Translation
+#### Example 3: Multi-Language Translation
 
 ```javascript
 parallel_subagent_orchestrator_orchestrate({
@@ -367,30 +408,12 @@ This is by design - plugins follow a "receive parameters → return results" pat
 
 ---
 
-## 📊 Version History
-
-- **v0.2.0** (2026-02-14)
-  - ✨ Project renamed to `openclaw-psam`
-  - ✨ Updated all configurations and paths
-  - ✨ Enhanced documentation with SEO optimization
-  - 📝 Improved keywords and topics for discoverability
-
-- **v0.1.0**
-  - 🎉 Initial release
-  - ✅ 6 core tools registered
-  - ✅ Task state management
-  - ✅ Model selection and configuration
-  - ✅ Activity logging (JSONL)
-  - ✅ Resource management and auto-cleanup
-
----
-
 ## 💻 Development
 
 ### Build from Source
 
 ```bash
-git clone https://github.com/yourusername/openclaw-psam.git
+git clone https://github.com/Ryandawson2019/openclaw-psam.git
 cd openclaw-psam
 npm install
 npm run build
@@ -443,9 +466,9 @@ openclaw, openclaw-plugin, psam, orchestrator, subagent, multi-agent, task-manag
 
 ## 📞 Support
 
-- 📧 Issues: [GitHub Issues](https://github.com/yourusername/openclaw-psam/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/openclaw-psam/discussions)
-- 📖 Docs: [Full Documentation](https://github.com/yourusername/openclaw-psam/wiki)
+- 📧 Issues: [GitHub Issues](https://github.com/Ryandawson2019/openclaw-psam/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/Ryandawson2019/openclaw-psam/discussions)
+- 📖 Docs: [Full Documentation](https://github.com/Ryandawson2019/openclaw-psam/wiki)
 
 ---
 
@@ -453,6 +476,6 @@ openclaw, openclaw-plugin, psam, orchestrator, subagent, multi-agent, task-manag
 
 **⭐ Star this repo if it helped you!**
 
-Made with ❤️ by the OpenClaw community
+Made with ❤️ by OpenClaw community
 
 </div>
