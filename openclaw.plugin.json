@@ -1,0 +1,24 @@
+{
+  "id": "openclaw-psam",
+  "name": "OpenClaw PSAM - Parallel Sub-Agent Orchestrator",
+  "version": "0.2.0",
+  "description": "OpenClaw PSAM - Parallel sub-agent orchestrator with intelligent task decomposition, model selection, progress monitoring, and resource cleanup",
+  "author": "",
+  "license": "MIT",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "wecomSenderSkillName": {
+        "type": "string",
+        "description": "Skill name for sending WeCom messages",
+        "default": "wecom-sender"
+      },
+      "monitoringAgentModel": {
+        "type": "string",
+        "description": "Model ID for status reporting",
+        "default": "gemini-2.0-flash"
+      }
+    }
+  }
+}

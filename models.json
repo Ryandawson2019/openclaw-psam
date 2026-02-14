@@ -1,0 +1,65 @@
+[
+  {
+    "id": "gemini-anti/claude-sonnet-4-5-thinking",
+    "capabilities": {
+      "speed": "medium",
+      "cost": "medium",
+      "context_length": "medium",
+      "reasoning": "medium"
+    }
+  },
+  {
+    "id": "gemini-anti/claude-opus-4-5-thinking",
+    "capabilities": {
+      "speed": "medium",
+      "cost": "medium",
+      "context_length": "medium",
+      "reasoning": "medium"
+    }
+  },
+  {
+    "id": "gemini-anti/gemini-3-pro-high",
+    "capabilities": {
+      "speed": "medium",
+      "cost": "medium",
+      "context_length": "medium",
+      "reasoning": "medium"
+    }
+  },
+  {
+    "id": "gemini-anti/gemini-3-pro-low",
+    "capabilities": {
+      "speed": "medium",
+      "cost": "medium",
+      "context_length": "medium",
+      "reasoning": "medium"
+    }
+  },
+  {
+    "id": "zai/glm-4.7",
+    "capabilities": {
+      "speed": "medium",
+      "cost": "medium",
+      "context_length": "medium",
+      "reasoning": "medium"
+    }
+  },
+  {
+    "id": "gemini-anti/gemini-3-flash",
+    "capabilities": {
+      "speed": "medium",
+      "cost": "medium",
+      "context_length": "medium",
+      "reasoning": "medium"
+    }
+  },
+  {
+    "id": "gemini-anti/gemini-2.5-flash",
+    "capabilities": {
+      "speed": "medium",
+      "cost": "medium",
+      "context_length": "medium",
+      "reasoning": "medium"
+    }
+  }
+]

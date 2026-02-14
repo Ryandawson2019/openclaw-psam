@@ -1,0 +1,36 @@
+{
+  "name": "openclaw-psam",
+  "version": "0.2.0",
+  "type": "module",
+  "description": "OpenClaw PSAM - Parallel sub-agent orchestrator with intelligent model selection, transparent monitoring, resource cleanup, and progress tracking",
+  "author": "",
+  "license": "MIT",
+  "main": "index.ts",
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.1.25"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "psam",
+    "subagent",
+    "orchestrator",
+    "task",
+    "parallel",
+    "automation",
+    "cleanup",
+    "resource-management"
+  ]
+}
